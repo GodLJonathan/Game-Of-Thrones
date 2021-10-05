@@ -40,6 +40,12 @@ async function connectToMongo() {
             await fetchData(baseUrl+element[0],element[1]);
         }
 
+        console.log(chalk.blue('All Tasks Completed ! Stopping the server...'));
+
+        setTimeout(() => {
+            process.exit()
+        },5000);
+
     }
 
     catch (error) {
@@ -80,7 +86,7 @@ async function fetchData(url,category) {
             let date ;
             let genre;
 
-            // console.log(movie)
+            console.log(movie)
             if(movie.overview === undefined || movie.overview.length === 0) continue;
 
             if(movie.release_date) date = new Date(movie.release_date).getFullYear();
