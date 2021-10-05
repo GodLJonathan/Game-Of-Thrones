@@ -1,0 +1,27 @@
+{
+  "name": "game-of-thrones",
+  "version": "1.0.0",
+  "description": "",
+  "main": "addData.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GodLJonathan/Game-Of-Thrones.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GodLJonathan/Game-Of-Thrones/issues"
+  },
+  "homepage": "https://github.com/GodLJonathan/Game-Of-Thrones#readme",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.9"
+  }
+}
