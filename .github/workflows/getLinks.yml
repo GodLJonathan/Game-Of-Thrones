@@ -5,6 +5,7 @@ name: Get Links
 
 on:
   workflow_dispatch:
+    branches: [ "links" ]
   
 jobs:
   build:
