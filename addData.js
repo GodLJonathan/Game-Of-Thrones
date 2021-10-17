@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { chromium } = require('playwright');
 const express = require('express');
 const app = express();
 const axios = require('axios');
@@ -55,6 +56,16 @@ async function connectToMongo() {
 }
 
 connectToMongo();
+
+async function findTrailer(title) {
+    const browser = await chromium.launch();
+    const page = await browser.newPage();
+    await page.goto('https://www.youtube.com/results?search_query=' + title + " trailer");
+    await page.click('#contents > .style-scope.ytd-item-section-renderer > #dismissible > .text-wrapper.style-scope.ytd-video-renderer > #meta > #title-wrapper > .title-and-badge.style-scope.ytd-video-renderer > #video-title')
+    const url = page.url()
+    await browser.close();
+    return url;
+}
 
 async function fetchData(url,category) {
     try {
@@ -128,6 +139,15 @@ async function fetchData(url,category) {
             }
 
             if(genre === undefined) continue;
+            
+            const trailerUrl = await findTrailer(title);
+            
+            let shortTitle = "";
+            
+            for(let ctr = 0 ; ctr < title.length ; ctr++) {
+                if(title[ctr] === '(' || title[ctr] === ':') break;
+                shortTitle += title[ctr];
+            }
 
             const newMovie = new Movie({
                 title:title,
@@ -137,7 +157,9 @@ async function fetchData(url,category) {
                 year : date,
                 limit : movie.adult ? 18:16,
                 genre:genre,
-                category: [category]
+                category: [category],
+                trailer:trailerUrl,
+                shortTitle:shortTitle
             });
 
             await newMovie.save();
